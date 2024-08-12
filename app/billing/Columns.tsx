@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { ColumnDef } from "@tanstack/react-table";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 // Define the shape of the data
 export type Billing = {
@@ -84,16 +84,10 @@ export const Columns: ColumnDef<Billing>[] = [
   {
     id: "actions",
     header: "Actions",
-    cell: ({ row }) => {
-      const router = useRouter();
-      const handleViewDetails = () => {
-        router.push(`/billing/${row.original.invoiceId}`);
-      };
-      return (
-        <Button onClick={handleViewDetails} className="mr-2">
-          View Details
-        </Button>
-      );
-    },
+    cell: ({ row }) => (
+      <Link href={`/billing/${row.original.invoiceId}`} passHref>
+        <Button className="mr-2">View Details</Button>
+      </Link>
+    ),
   },
 ];
